@@ -1,0 +1,20 @@
+package helloWorldGroup.helloWorldArtifact;
+
+
+@Configuration
+public class DBConfig extends AbstractR2dbcConfiguration {
+  @Override
+  public ConnectionFactory connectionFactory() {
+      return ConnectionFactory.get("r2dbc:postgresql://localhost:5433/testdb");
+  }
+
+  @Bean
+  public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
+      var initializer = new ConnectionFactoryInitializer();
+      initializer.setConnectionFactory(connectionFactory);
+      var databasePopulator = new CompositeDatabasePopulator();
+      databasePopulator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
+      initializer.setDatabasePopulator(databasePopulator);
+      return initializer;
+  }
+}
