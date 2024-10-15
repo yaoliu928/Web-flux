@@ -1,5 +1,11 @@
 package helloWorldGroup.helloWorldArtifact;
 
+/**
+ * The @Configuration annotation indicates that DBConfig is a configuration class.
+ * The connectionFactory method is overridden to provide a ConnectionFactory bean.
+ * The initializer method is annotated with @Bean, indicating that it returns a bean to be managed by the Spring container
+ * This setup allows Spring to manage the lifecycle and dependencies of the beans defined in DBConfig.
+*/
 @Configuration
 public class DBConfig extends AbstractR2dbcConfiguration {
   @Override
