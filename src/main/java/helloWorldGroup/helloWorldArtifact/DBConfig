@@ -1,6 +1,5 @@
 package helloWorldGroup.helloWorldArtifact;
 
-
 @Configuration
 public class DBConfig extends AbstractR2dbcConfiguration {
   @Override
