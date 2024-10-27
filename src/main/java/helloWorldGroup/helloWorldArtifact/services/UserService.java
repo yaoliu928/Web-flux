@@ -30,15 +30,24 @@ public class UserService {
 
   public Mono<Users> updateUser(Users user) {
     return userRepository.findById(user.getId())
-    // if user not exist, throw exception
-      .switchIfEmpty(Mono.error(new Exception("User not found")))
-      .map(olderUser -> {
-        if(user.getSurname() != null) olderUser.setSurname(user.getSurname());
-        if(user.getUsername() != null) olderUser.setUsername(user.getUsername());
-        if(user.getEmail() != null) olderUser.setEmail(user.getEmail());
-        if(user.getName() != null) olderUser.setName(user.getName());
-        return olderUser;
-      })
-      .flatMap(userRepository::save);
-      }
+        // if user not exist, throw exception
+        .switchIfEmpty(Mono.error(new Exception("User not found")))
+        .map(olderUser -> {
+          if (user.getSurname() != null)
+            olderUser.setSurname(user.getSurname());
+          if (user.getUsername() != null)
+            olderUser.setUsername(user.getUsername());
+          if (user.getEmail() != null)
+            olderUser.setEmail(user.getEmail());
+          if (user.getName() != null)
+            olderUser.setName(user.getName());
+          return olderUser;
+        })
+        .flatMap(userRepository::save);
+  }
+
+  public Mono<Void> deleteUser(Long id) {
+    return userRepository.deleteById(id)
+        .switchIfEmpty(Mono.error(new Exception("User not found")));
+  }
 }
